@@ -1,20 +1,12 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections.Generic;
-
-// /////////////////////////////////////////////////////////////////
-// Thanks to Dandarawy                                            //
-// https://www.https://github.com/Dandarawy/Unity3DPolylineEditor //
-// /////////////////////////////////////////////////////////////////
-
 [CustomEditor(typeof(Polyline))]
 public class PolylineEditor : Editor
 {
     Texture nodeTexture;
     static GUIStyle handleStyle = new GUIStyle();
     List<int> alignedPoints=new List<int>();
-
-
     void OnEnable()
     {
         nodeTexture = Resources.Load<Texture>("Handle");
@@ -23,8 +15,6 @@ public class PolylineEditor : Editor
         handleStyle.fixedWidth = 15;
         handleStyle.fixedHeight = 15;
     }
-
-
     void OnSceneGUI()
     {
         Polyline polyline = (target as Polyline);
@@ -69,8 +59,6 @@ public class PolylineEditor : Editor
         }
 
     }
-
-
     private int FindNearestNodeToMouse(Vector3[] worldNodesPositions)
     {
         Vector3 mousePos = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition).origin;
@@ -88,8 +76,6 @@ public class PolylineEditor : Editor
         }
         return index;
     }
-
-
     private int FindNodeIndex(Vector3[] worldNodesPositions, Vector3 newNode)
     {
         float smallestdis = float.MaxValue;
@@ -105,8 +91,6 @@ public class PolylineEditor : Editor
         }
         return prevIndex + 1;
     }
-
-    
     private void DrawPolyLine(Vector3[] nodes)
     {
         if (Event.current.shift) Handles.color = Color.green;
@@ -127,8 +111,6 @@ public class PolylineEditor : Editor
         }
         Handles.color = Color.white;
     }
-
-
     private void DrawNodes(Polyline polyline, Vector3[] worldPoints)
     {
         for (int i = 0; i < polyline.nodes.Count; i++)
@@ -144,8 +126,6 @@ public class PolylineEditor : Editor
             }
         }
     }
-
-
     bool CheckAlignment(Vector3[] worldNodes, float offset, int index, ref Vector3 position)
     {
         alignedPoints.Clear();
@@ -248,9 +228,7 @@ public class PolylineEditor : Editor
 
         return aligned;
     }
-
-
-    void HandleFunc(int controlID, Vector3 position, Quaternion rotation, float size, EventType type)
+    void HandleFunc(int controlID, Vector3 position, Quaternion rotation, float size)
     {
         if (controlID == GUIUtility.hotControl)
             GUI.color = Color.red;
@@ -259,9 +237,7 @@ public class PolylineEditor : Editor
         Handles.Label(position, new GUIContent(nodeTexture), handleStyle);
         GUI.color = Color.white;
     }
-
-
-    void DeleteHandleFunc(int controlID, Vector3 position, Quaternion rotation, float size, EventType type)
+    void DeleteHandleFunc(int controlID, Vector3 position, Quaternion rotation, float size)
     {
         GUI.color = Color.red;
         Handles.Label(position, new GUIContent(nodeTexture), handleStyle);
