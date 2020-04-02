@@ -1,0 +1,57 @@
+# Project 「𝕮𝖍𝖆𝖙𝖆」 overall progress
+- [ ] Menu
+  - [x] Arrange UI
+  - [x] Menu Art
+  - [x] Responsive
+  - [ ] Button functionality
+  - [ ] *Optional:* Control visualization 
+- [ ] Loading Screen
+  - [x] Arrange UI
+  - [x] LScreen Art
+  - [ ] Async scene loading + Game processes
+- [ ] Game
+  - [x] Camera movement
+    - [x] Angle adjustment
+  - [ ] Player
+    - [x] Movement => selector
+    - [x] Actions
+      - [x] Diging
+      - [x] Planting
+      - [x] Clearing
+  - [x] Enviroment
+    - [x] Obstacle objects
+    - [x] Map
+    - [ ] *Optional:* more light sources
+  - [ ] Spawners
+    - [x] Mechanic (Enemy spawning)
+    - [ ] Arrangement
+  - [x] Enemies
+    - [x] Models loaded and animated
+    - [x] Path movement
+    - [x] Attacks
+    - [x] Death + Drops
+  - [ ] Plants
+    - [x] Models loaded and animated
+    - [x] Death + Drop
+    - [ ] Attacks
+    - [ ] Planting cost 
+  - [ ] Core
+    - [x] Tool selection
+    - [x] Main game timer
+    - [x] Health bar
+    - [x] Currency bar
+    - [ ] Game end
+      - [x] UI
+      - [x] Mechanic
+      - [ ] Like actually end game
+    - [ ] Game pause
+      - [x] UI
+      - [ ] Mechanic
+    - [x] Tool usage indicator
+- [ ] *Optional:* Extras
+  - [ ] Essence spawning
+  - [ ] Fireflies
+  - [ ] Chata pointer
+- [ ] Overall compatibility
+- [ ] Sounds & Music
+- [ ] Release version
