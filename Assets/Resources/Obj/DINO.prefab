@@ -689,10 +689,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90c6f8a0c53e61f43a682719b0cea6bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 0
-  damage: 50
+  hp: 15
+  damage: 5
   trajectory: {fileID: 0}
-  attack_speed: 0
+  attack_speed: 3
+  drop_range: {x: 1, y: 3}
 --- !u!65 &464496461942748411
 BoxCollider:
   m_ObjectHideFlags: 0

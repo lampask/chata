@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(Rigidbody))]
@@ -12,12 +13,20 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
     public int Health { get { return hp; } set {hp = value;} } 
     public int Damage { get { return damage; } set {damage = value;} }
     protected NavMeshAgent nava;
-    public Polyline trajectory;
+    [HideInInspector] public Polyline trajectory;
     private int current = 0;
     [SerializeField] protected int attack_speed;
-    protected void Awake() {
+    [SerializeField] protected Vector2 drop_range;
+
+    private IDamagable target;
+
+    protected virtual void Awake() {
         nava = GetComponent<NavMeshAgent>();
         transform.tag = "enemy";
+    }
+
+    protected virtual void Start() {
+        Game.game_over_event.AddListener(Die);
     }
 
     protected virtual void Update() {
@@ -32,24 +41,36 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
 
     public void TakeDamage<T>(T dealer) where T : ICanDealDamage {
         Health -= dealer.Damage;
+        if (Health <= 0)
+            Die();
     }
 
     protected void OnDestroy() {
-        Utils.Drop(transform.position, Random.Range(2,3));
+        Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
     }
 
     protected virtual void OnTriggerEnter(Collider other) {
         if (other.CompareTag("plant") || other.CompareTag("chata")) {
             nava.isStopped = true;
-            DoDamage(other.gameObject.GetComponent<IDamagable>());
+            StartCoroutine(Attack(other.gameObject.GetComponent<IDamagable>()));
         }
     }
 
-    protected virtual void OnTriggerExit(Collider other) {
+    public void EndAttack() {
         nava.isStopped = false;
     }
 
-    public virtual void Die() {
-        Destroy(this);
+    protected IEnumerator Attack(IDamagable target) {
+        while(target != null && !target.Equals(null)) {
+            DoDamage(target);
+            yield return new WaitForSeconds(attack_speed); 
+        }
+        target = null;
+        EndAttack();
+    }
+
+    public void Die() {
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
 }

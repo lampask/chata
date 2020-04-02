@@ -13,6 +13,7 @@ TagManager:
   - chata
   - hp_bar
   - plant
+  - essence
   layers:
   - Default
   - TransparentFX

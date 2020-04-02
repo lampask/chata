@@ -10,4 +10,8 @@ public class WorldObject : MonoBehaviour
     public WorldObject GetObjectAbove() {
         return Utils.GetMapObj(position+Vector3.forward);
     }
+
+    public WorldObject GetObjectBelow() {
+        return Utils.GetMapObj(position+Vector3.back);
+    }
 }

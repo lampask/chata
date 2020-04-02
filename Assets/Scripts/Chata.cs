@@ -20,7 +20,8 @@ public class Chata : MonoBehaviour, IDamagable
     public void TakeDamage<T>(T dealer) where T : ICanDealDamage
     {
         Health = dealer.Damage;
-        Debug.Log("Got hit");
+        if (Health <= 0)
+            Die();
     }
 
     private void Awake() {
@@ -30,7 +31,7 @@ public class Chata : MonoBehaviour, IDamagable
     void Update()
     {
         // Maintain the healthbar
-        hp_bar.fillAmount = (float) Game.health / (float) Constants.CHATA_HEALTH;
+        hp_bar.fillAmount = (float) Health / (float) Constants.CHATA_HEALTH;
     }
 
     public void Die() {

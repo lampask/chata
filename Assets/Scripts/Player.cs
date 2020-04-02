@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
+using TMPro;
 using System.Linq;
 using System;
 
@@ -13,6 +14,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
 {
     [HideInInspector] public SkinnedMeshRenderer mesh;
     [HideInInspector] public NavMeshAgent nava;
+
+    [HideInInspector] public TextMeshProUGUI essence;
 
     public float force = 1f;
 
@@ -64,6 +67,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
         mesh = GetComponentInChildren<SkinnedMeshRenderer>();
         nava = GetComponent<NavMeshAgent>();
         progress = GameObject.FindGameObjectWithTag("progress").GetComponent<Image>();
+        essence = GameObject.FindGameObjectWithTag("essence").GetComponent<TextMeshProUGUI>();
 
         mesh.gameObject.layer = LayerMask.NameToLayer("Characters");
     }
@@ -124,6 +128,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
                 ResetInteraction();
             }
         }
+        // update essence counter
+        essence.text = Game.essence.ToString();
     }
 
     private void ResetInteraction() {
@@ -158,7 +164,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     }
 
     public void DoDamage<T>(T target) where T : IDamagable {
-        // TODO
+        // TODO Player attack mechanic
     }
 
     private void OnDisable() {
