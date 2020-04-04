@@ -1,14 +1,14 @@
 # Project 「𝕮𝖍𝖆𝖙𝖆」 overall progress
-- [ ] Menu
+- [x] Menu
   - [x] Arrange UI
   - [x] Menu Art
   - [x] Responsive
-  - [ ] Button functionality
+  - [x] Button functionality
   - [ ] *Optional:* Control visualization 
-- [ ] Loading Screen
+- [x] Loading Screen
   - [x] Arrange UI
   - [x] LScreen Art
-  - [ ] Async scene loading + Game processes
+  - [x] Async scene loading + Game processes
 - [ ] Game
   - [x] Camera movement
     - [x] Angle adjustment
@@ -52,6 +52,6 @@
   - [ ] Essence spawning
   - [ ] Fireflies
   - [ ] Chata pointer
-- [ ] Overall compatibility
+- [x] Overall compatibility
 - [ ] Sounds & Music
 - [ ] Release version
