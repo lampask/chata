@@ -6,6 +6,7 @@ public class InventorySelection : MonoBehaviour
     Image img_holder;
 
     public float speed = 5f;
+    public float magnitude = .02f;
 
     private void Start() {
         img_holder = transform.GetChild((int) Game.player.selection).GetComponent<Image>();    
@@ -19,5 +20,7 @@ public class InventorySelection : MonoBehaviour
             last = (int) Game.player.selection;
         }
         img_holder.color = new Color(1,1,1, .6f+Mathf.Sin(Time.time*speed)*(1f-.6f)/2);
+
+        Game.selector_tilemap_object.transform.position = Vector3.up*1.05f+Vector3.up*(magnitude*Mathf.Sin(Time.time*speed));
     }
 }

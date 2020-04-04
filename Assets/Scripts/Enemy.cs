@@ -62,8 +62,8 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
 
     protected IEnumerator Attack(IDamagable target) {
         while(target != null && !target.Equals(null)) {
-            DoDamage(target);
             yield return new WaitForSeconds(attack_speed); 
+            DoDamage(target);
         }
         target = null;
         EndAttack();

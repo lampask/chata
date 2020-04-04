@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    [Utils.ReadOnly] public GameManager _instance;
+    [Utils.ReadOnly] public static GameManager _instance;
     [SerializeField] List<TileIdentification> restricted_blocks = new List<TileIdentification>();
     [SerializeField] List<Material> materials = new List<Material>();
     [SerializeField] List<Material> materials_o = new List<Material>();

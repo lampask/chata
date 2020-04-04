@@ -24,6 +24,8 @@ public static class Imports
 
     // Plants
     public static readonly GameObject DELFI_OBJ = Resources.Load(PointConvert("DELFI", ConversionType.Obj)) as GameObject;
+    public static readonly GameObject KARF_OBJ = Resources.Load(PointConvert("Karfiol", ConversionType.Obj)) as GameObject;
+    public static readonly GameObject BROKOL_OBJ = Resources.Load(PointConvert("Brokolica", ConversionType.Obj)) as GameObject;
     public static readonly GameObject TEKVICA_OBJ = Resources.Load(PointConvert("TEKVICA", ConversionType.Obj)) as GameObject;
 
     //Enemies

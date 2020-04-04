@@ -69,7 +69,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
         progress = GameObject.FindGameObjectWithTag("progress").GetComponent<Image>();
         essence = GameObject.FindGameObjectWithTag("essence").GetComponent<TextMeshProUGUI>();
 
-        mesh.gameObject.layer = LayerMask.NameToLayer("Characters");
+        gameObject.layer = LayerMask.NameToLayer("Characters");
     }
 
     private void Start() {
@@ -119,7 +119,10 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
                         Remove(Utils.GetMapObj(game_map.LocalToCell(p_pos+Vector3.up)));
                         break;
                     case IStage.DIG:
-                        Dig((TileIdentification) Utils.GetMapObj(game_map.LocalToCell(p_pos)));
+                        if (Game.essence >= Constants.DIGGING_COST) {
+                            Game.essence--;
+                            Dig((TileIdentification) Utils.GetMapObj(game_map.LocalToCell(p_pos)));
+                        }
                         break;
                     case IStage.PLANT:
                         Plant();
@@ -152,13 +155,30 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     }
 
     private void Plant() {
-        Debug.Log("Plant");
         switch(selection) {
             case ISelection.DELFI:
-                Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Delfi>());
+                if (Game.essence >= Imports.DELFI_OBJ.GetComponent<Plant>().cost) {
+                    Game.essence -= Imports.DELFI_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                }
+                break;
+            case ISelection.BROKOL:
+                if (Game.essence >= Imports.BROKOL_OBJ.GetComponent<Plant>().cost) {
+                    Game.essence -= Imports.BROKOL_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.BROKOL_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                }
+                break;
+            case ISelection.KARF:
+                if (Game.essence >= Imports.KARF_OBJ.GetComponent<Plant>().cost) {
+                    Game.essence -= Imports.KARF_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.KARF_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                }
                 break;
             case ISelection.PUMPKIN:
-                Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Tekvica>());
+            if (Game.essence >= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost) {
+                    Game.essence -= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                }
                 break;
         }
     }

@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-[RequireComponent(typeof(MeshRenderer))]
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(BoxCollider))]
 public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
 {
     public Game.EntityType type { get; } = Game.EntityType.PLANT;
 
     [SerializeField] protected int hp;
     [SerializeField] protected int damage;
-    [SerializeField] protected int cost;
+    [SerializeField] public int cost;
     public int Health { get { return hp; } set {hp += value;} } 
     public int Damage { get { return damage; } set {damage = value;} }
     [SerializeField] protected int attack_speed;
@@ -41,12 +40,12 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
     }
 
     public void Die() {
-        TileIdentification tile_below = (TileIdentification) GetObjectBelow();
+        /*TileIdentification tile_below = (TileIdentification) GetObjectBelow();
         // remove dig effect
         MeshRenderer mr = tile_below.GetComponent<MeshRenderer>();
         mr.sharedMaterial = Game.tiles.FirstOrDefault(x => x.Value == mr.sharedMaterial).Key;
         // Disable tile
-        tile_below.ready = false;
+        tile_below.ready = false;*/
         Destroy(gameObject);
     }
 }

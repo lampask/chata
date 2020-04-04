@@ -20,6 +20,7 @@ public class MenuScript : MonoBehaviour
 
     public void Play() {
         Debug.Log("Play trigerred!");
+        ScreenManager.instance.LoadGame();
     }
 
     public void Tutorial() {
@@ -33,10 +34,12 @@ public class MenuScript : MonoBehaviour
 
     public void Quit() {
         Debug.Log("Quit trigerred!");
+        
     }
 
     public void Cretits() {
         Debug.Log("Credits trigerred!");
+        ScreenManager.instance.LoadCredits();
     }
 
     public void ClearSelection() {
@@ -44,3 +47,4 @@ public class MenuScript : MonoBehaviour
             //if (button.)button.Select();
     }
 }
+
