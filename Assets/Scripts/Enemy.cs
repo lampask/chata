@@ -6,7 +6,7 @@ using System.Collections;
 [RequireComponent(typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
 {
-    public Game.EntityType type { get { return Game.EntityType.ENEMY; } }
+    public GameManager.EntityType type { get { return GameManager.EntityType.ENEMY; } }
 
     [SerializeField] protected int hp;
     [SerializeField] protected int damage;
@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
     }
 
     protected virtual void Start() {
-        Game.game_over_event.AddListener(Die);
+        GameManager._instance.game_over_event.AddListener(Die);
     }
 
     protected virtual void Update() {

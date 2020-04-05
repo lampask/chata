@@ -32,21 +32,21 @@ public class CameraScript : MonoBehaviour {
     /* ============================== */
 
     private void OnEnable() {
-        Game.controls.Gameplay.Drag.Enable();
-        Game.controls.Gameplay.Focus.Enable();
+        GameManager._instance.controls.Gameplay.Drag.Enable();
+        GameManager._instance.controls.Gameplay.Focus.Enable();
     }
 
     void Awake () {
         cam = GetComponentInChildren<Camera>();
-        Game.controls = new InputSetting();
+        GameManager._instance.controls = new InputSetting();
         bounds.Initialize(cam);
         cam.orthographicSize = 5f;
         maxXPositions = bounds.maxXlimit;
         maxZPositions = bounds.maxYlimit;
         
-        Game.controls.Gameplay.View.performed += _ => OnLook(_);
-        Game.controls.Gameplay.Drag.performed += _ => OnMouse(_);
-        Game.controls.Gameplay.Focus.performed += _ => Focus(_);
+        GameManager._instance.controls.Gameplay.View.performed += _ => OnLook(_);
+        GameManager._instance.controls.Gameplay.Drag.performed += _ => OnMouse(_);
+        GameManager._instance.controls.Gameplay.Focus.performed += _ => Focus(_);
     }
 
     void Start () {
@@ -60,23 +60,25 @@ public class CameraScript : MonoBehaviour {
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
             cam.orthographicSize += zoomStep;
         cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, zoomLimits[0], zoomLimits[1]); */
-        Game.cam_angle = transform.rotation;
+        GameManager._instance.cam_angle = transform.rotation;
     }
 
 	void LateUpdate () {
         // Process movement
-		if (drag)
-            transform.position = Vector3.Lerp(origin, transform.position - diference, dragSpeed * Time.deltaTime);
-        if (focused) {
-            var p_pos = Game.player.transform.position;
-            transform.position = Vector3.Lerp(transform.position, new Vector3(p_pos.x - focus_offset.x, 0, p_pos.z - focus_offset.y), Time.deltaTime * focusSpeed);
-        } else {
+        if (!GameManager._instance.player.Equals(null)) {
+            if (drag)
+                transform.position = Vector3.Lerp(origin, transform.position - diference, dragSpeed * Time.deltaTime);
+            if (focused) {
+                var p_pos = GameManager._instance.player.transform.position;
+                transform.position = Vector3.Lerp(transform.position, new Vector3(p_pos.x - focus_offset.x, 0, p_pos.z - focus_offset.y), Time.deltaTime * focusSpeed);
+            } else {
 
+            }
         }
 	}
     private void OnDisable() {
-        Game.controls.Gameplay.View.Disable();
-        Game.controls.Gameplay.Drag.Disable();
+        GameManager._instance.controls.Gameplay.View.Disable();
+        GameManager._instance.controls.Gameplay.Drag.Disable();
     }
 
     /* ============================== */
@@ -88,7 +90,7 @@ public class CameraScript : MonoBehaviour {
     /// </summary>
     public void OnMouse(InputAction.CallbackContext ctx) {
         Debug.Log("Clicked");
-        Game.controls.Gameplay.View.Enable();
+        GameManager._instance.controls.Gameplay.View.Enable();
     }
 
     /// <summary>
@@ -101,7 +103,7 @@ public class CameraScript : MonoBehaviour {
         focused = false;
         drag = true;
         if (!Mouse.current.leftButton.isPressed) {
-            Game.controls.Gameplay.View.Disable();
+            GameManager._instance.controls.Gameplay.View.Disable();
             drag = false;
         }
     }

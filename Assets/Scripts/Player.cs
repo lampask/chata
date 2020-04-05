@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     private Vector2 dir_temp;
     [HideInInspector] public Vector3 angeled_cords; 
 
-    public Game.EntityType type { get { return Game.EntityType.PLAYER; } }
+    public GameManager.EntityType type { get { return GameManager.EntityType.PLAYER; } }
     public int Damage { get; set; }
 
     Tilemap selector_map;
@@ -58,8 +58,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     }
 
     private void OnEnable() {
-        Game.controls.Gameplay.Movement.Enable();
-        Game.controls.Gameplay.Interaction.Enable();
+        GameManager._instance.controls.Gameplay.Movement.Enable();
+        GameManager._instance.controls.Gameplay.Interaction.Enable();
     }
 
     private void Awake() {
@@ -73,11 +73,11 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
 
     private void Start() {
         selector = Imports.SELECTOR_TILE;
-        selector_map = Game.selector_tilemap_object.GetComponent<Tilemap>();
-        game_map = Game.tilemap_object.GetComponent<Tilemap>();
+        selector_map = GameManager._instance.selector_tilemap_object.GetComponent<Tilemap>();
+        game_map = GameManager._instance.tilemap_object.GetComponent<Tilemap>();
         p_pos = transform.position+Vector3.down;
         ChangeSelector(selector);   
-        Game.game_over_event.AddListener(() => {
+        GameManager._instance.game_over_event.AddListener(() => {
             Destroy(this.gameObject);
         });
     }
@@ -86,7 +86,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
         if (direction != Vector2.zero) {
             Vector3 holder = p_pos + (new Vector3(direction.x, 0, direction.y) * Time.deltaTime * selector_speed);
             // Get and check the movement vector 
-            if (Utils.GetMapObj(game_map.LocalToCell(holder)) != null && !Game.restricted_blocks.Contains(game_map.LocalToCell(holder))){
+            if (Utils.GetMapObj(game_map.LocalToCell(holder)) != null && !GameManager._instance.restricted_blocks.Contains(game_map.LocalToCell(holder))){
                 p_pos = holder;
             }
             // Move selector
@@ -108,7 +108,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
                 Debug.LogWarning("The stopping distance of player is zero. This will lead to rotation issues please change it. (x > 0)");
             }
             transform.rotation = Quaternion.LookRotation(dir);
-            //Game.player.GetComponentInChildren<Light>().gameObject.transform.parent.parent.transform.position = new Vector3(pos.x, 7, pos.y);
+            //GameManager._instance.player.GetComponentInChildren<Light>().gameObject.transform.parent.parent.transform.position = new Vector3(pos.x, 7, pos.y);
         }
         if (time_saved != -1) {
             progress.color = Color.white;
@@ -121,8 +121,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
                         Remove(Utils.GetMapObj(game_map.LocalToCell(p_pos+Vector3.up)));
                         break;
                     case IStage.DIG:
-                        if (Game.essence >= Constants.DIGGING_COST) {
-                            Game.essence--;
+                        if (GameManager._instance.essence >= Constants.DIGGING_COST) {
+                            GameManager._instance.essence--;
                             Dig((TileIdentification) Utils.GetMapObj(game_map.LocalToCell(p_pos)));
                         }
                         break;
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
             }
         }
         // update essence counter
-        essence.text = Game.essence.ToString();
+        essence.text = GameManager._instance.essence.ToString();
     }
 
     private void ResetInteraction() {
@@ -156,33 +156,33 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     private void Dig(TileIdentification target) {
         target.ready = true;
         var mr = target.gameObject.GetComponent<MeshRenderer>();
-        mr.sharedMaterial = Game.tiles[mr.sharedMaterial];
+        mr.sharedMaterial = GameManager._instance.tiles[mr.sharedMaterial];
     }
 
     private void Plant() {
         switch(selection) {
             case ISelection.DELFI:
-                if (Game.essence >= Imports.DELFI_OBJ.GetComponent<Plant>().cost) {
-                    Game.essence -= Imports.DELFI_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                if (GameManager._instance.essence >= Imports.DELFI_OBJ.GetComponent<Plant>().cost) {
+                    GameManager._instance.essence -= Imports.DELFI_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.BROKOL:
-                if (Game.essence >= Imports.BROKOL_OBJ.GetComponent<Plant>().cost) {
-                    Game.essence -= Imports.BROKOL_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.BROKOL_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                if (GameManager._instance.essence >= Imports.BROKOL_OBJ.GetComponent<Plant>().cost) {
+                    GameManager._instance.essence -= Imports.BROKOL_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.BROKOL_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.KARF:
-                if (Game.essence >= Imports.KARF_OBJ.GetComponent<Plant>().cost) {
-                    Game.essence -= Imports.KARF_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.KARF_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+                if (GameManager._instance.essence >= Imports.KARF_OBJ.GetComponent<Plant>().cost) {
+                    GameManager._instance.essence -= Imports.KARF_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.KARF_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.PUMPKIN:
-            if (Game.essence >= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost) {
-                    Game.essence -= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, Game.cam_angle).GetComponent<Plant>());
+            if (GameManager._instance.essence >= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost) {
+                    GameManager._instance.essence -= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost;
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
         }
@@ -195,8 +195,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     public void EndAttack() { }
 
     private void OnDisable() {
-        Game.controls.Gameplay.Movement.Disable();
-        Game.controls.Gameplay.Interaction.Disable();
+        GameManager._instance.controls.Gameplay.Movement.Disable();
+        GameManager._instance.controls.Gameplay.Interaction.Disable();
     }
 
     void OnMovement(InputValue _) {

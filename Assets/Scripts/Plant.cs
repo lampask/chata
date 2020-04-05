@@ -6,7 +6,7 @@ using System.Linq;
 [RequireComponent(typeof(BoxCollider))]
 public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
 {
-    public Game.EntityType type { get; } = Game.EntityType.PLANT;
+    public GameManager.EntityType type { get; } = GameManager.EntityType.PLANT;
 
     [SerializeField] protected int hp;
     [SerializeField] protected int damage;
@@ -19,7 +19,7 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
     protected void Awake() {
         //EventManager.Instance.OnDamageDone.AddListener((EventManager.IDE t, ICanDealDamage u) => TakeDamage(t, u));
         transform.tag = "plant";
-        Game.game_over_event.AddListener(() => {
+        GameManager._instance.game_over_event.AddListener(() => {
             Destroy(this.gameObject);
         });
     }
@@ -45,7 +45,7 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
         /*TileIdentification tile_below = (TileIdentification) GetObjectBelow();
         // remove dig effect
         MeshRenderer mr = tile_below.GetComponent<MeshRenderer>();
-        mr.sharedMaterial = Game.tiles.FirstOrDefault(x => x.Value == mr.sharedMaterial).Key;
+        mr.sharedMaterial = GameManager._instance.tiles.FirstOrDefault(x => x.Value == mr.sharedMaterial).Key;
         // Disable tile
         tile_below.ready = false;*/
         Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));

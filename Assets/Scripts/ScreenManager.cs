@@ -78,6 +78,8 @@ public class ScreenManager : MonoBehaviour {
                 yield return null;
             }
         }
+        //yield return new WaitForSeconds(2);
+        loading.Clear();
         loadingScreen.SetActive(false);
     }
 }

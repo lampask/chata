@@ -10,10 +10,10 @@ public class Chata : MonoBehaviour, IDamagable
 
     public int Health {
         get {
-            return Game.health;
+            return GameManager._instance.health;
         } set {
-            Game.health -= value;
-            Mathf.Clamp(Game.health, 0, Constants.CHATA_HEALTH);
+            GameManager._instance.health -= value;
+            Mathf.Clamp(GameManager._instance.health, 0, Constants.CHATA_HEALTH);
         }
     }
 
@@ -36,6 +36,6 @@ public class Chata : MonoBehaviour, IDamagable
 
     public void Die() {
         // This is the end
-        Game.game_over_event.Invoke();
+        GameManager._instance.game_over_event.Invoke();
     }
 }

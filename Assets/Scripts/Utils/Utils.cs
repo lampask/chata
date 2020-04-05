@@ -43,25 +43,25 @@ public static class Utils
     public static WorldObject GetMapObj(Vector2 pos) { return GetMapObj((int)pos.x, (int)pos.y, 0); }
     public static WorldObject GetMapObj(Vector2Int pos) { return GetMapObj(pos.x, pos.y, 0); }
     public static WorldObject GetMapObj(int x, int y, int z) {
-        if (Game.map == null)
-            InitializeMap(Game.tilemap_object);
+        if (GameManager._instance.map == null)
+            InitializeMap(GameManager._instance.tilemap_object);
         try {
-            return Game.map[z][x][y];
+            return GameManager._instance.map[z][x][y];
         } catch {
             return null;
         }
     }
     
     public static void AddMapObj(WorldObject obj) { 
-        if (!Game.map.ContainsKey((int) obj.gameObject.transform.position.z))
-            Game.map[(int) obj.gameObject.transform.position.z] = new Dictionary<int, Dictionary<int, WorldObject>>();
-        if (!Game.map[(int) obj.gameObject.transform.position.z].ContainsKey((int) obj.gameObject.transform.position.x))
-            Game.map[(int) obj.gameObject.transform.position.z][(int) obj.gameObject.transform.position.x] = new Dictionary<int, WorldObject>();
-        Game.map[(int) obj.gameObject.transform.position.z][(int) obj.gameObject.transform.position.x][(int) obj.gameObject.transform.position.y] = obj; 
+        if (!GameManager._instance.map.ContainsKey((int) obj.gameObject.transform.position.z))
+            GameManager._instance.map[(int) obj.gameObject.transform.position.z] = new Dictionary<int, Dictionary<int, WorldObject>>();
+        if (!GameManager._instance.map[(int) obj.gameObject.transform.position.z].ContainsKey((int) obj.gameObject.transform.position.x))
+            GameManager._instance.map[(int) obj.gameObject.transform.position.z][(int) obj.gameObject.transform.position.x] = new Dictionary<int, WorldObject>();
+        GameManager._instance.map[(int) obj.gameObject.transform.position.z][(int) obj.gameObject.transform.position.x][(int) obj.gameObject.transform.position.y] = obj; 
     }
 
     public static void RemoveMapObj(WorldObject obj) {
-        Game.map[obj.position.z][obj.position.x].Remove(obj.position.y);
+        GameManager._instance.map[obj.position.z][obj.position.x].Remove(obj.position.y);
     }
 
     public static T Next<T>(this T src) where T : struct
@@ -86,7 +86,7 @@ public static class Utils
         Drop(source.transform.position, amout);
     }
     public static void Drop(Vector3 pos, int amout) {
-        if (!Game.IsGameOver) {
+        if (!GameManager._instance.IsGameOver) {
             // TODO Droppping essence
             GameObject.Instantiate(Imports.ESSENCE, pos, Quaternion.identity).GetComponent<Item>().amout = amout;
         }

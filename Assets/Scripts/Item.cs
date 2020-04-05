@@ -8,6 +8,13 @@ public class Item : MonoBehaviour, IPickable
     public int amout;
     public float pickup_range = 2f;
     public float pickup_speed = 2f;
+
+    private void Awake() {
+        GameManager._instance.game_over_event.AddListener(() => {
+            Destroy(this.gameObject);
+        });    
+    }   
+
     private void Update() {
         Collider[] collector = Physics.OverlapSphere(transform.position, pickup_range, 1 << 10);
         if (collector.Length > 0) {
@@ -20,7 +27,7 @@ public class Item : MonoBehaviour, IPickable
     }
 
     public void Picked(Player picker, Item item) { 
-        Game.essence += amout;
+        GameManager._instance.essence += amout;
         Destroy(this.gameObject);
     }
 

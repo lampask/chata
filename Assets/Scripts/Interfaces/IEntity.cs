@@ -1,4 +1,4 @@
 ﻿public interface IEntity
 {
-    Game.EntityType type { get; }
+    GameManager.EntityType type { get; }
 }
