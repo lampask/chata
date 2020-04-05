@@ -6,7 +6,6 @@ using UnityEngine.AI;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using TMPro;
-using System.Linq;
 using System;
 
 [RequireComponent(typeof(NavMeshAgent))]
@@ -78,6 +77,9 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
         game_map = Game.tilemap_object.GetComponent<Tilemap>();
         p_pos = transform.position+Vector3.down;
         ChangeSelector(selector);   
+        Game.game_over_event.AddListener(() => {
+            Destroy(this.gameObject);
+        });
     }
 
     void Update() { 
@@ -146,6 +148,9 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     }
     private void Remove(WorldObject target) {
         Utils.RemoveMapObj(target);
+        int drop = UnityEngine.Random.Range(0, 3);
+        if (drop > 0)
+            Utils.Drop(target.transform.position, drop);
         Destroy(target.gameObject);
     }
     private void Dig(TileIdentification target) {
@@ -186,6 +191,8 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     public void DoDamage<T>(T target) where T : IDamagable {
         // TODO Player attack mechanic
     }
+
+    public void EndAttack() { }
 
     private void OnDisable() {
         Game.controls.Gameplay.Movement.Disable();
@@ -228,6 +235,12 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
             }
         }
         time_saved = Time.time;
+    }
+
+    void OnPause() {
+        GameObject pause = GameManager._instance.pause;
+        pause.SetActive(!pause.activeSelf);
+        Time.timeScale = pause.activeSelf ? 0 : 1;
     }
 
     void ChangeSelector(TileBase tile) {

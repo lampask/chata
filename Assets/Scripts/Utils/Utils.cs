@@ -88,7 +88,7 @@ public static class Utils
     public static void Drop(Vector3 pos, int amout) {
         if (!Game.IsGameOver) {
             // TODO Droppping essence
-            throw new System.NotImplementedException();
+            GameObject.Instantiate(Imports.ESSENCE, pos, Quaternion.identity).GetComponent<Item>().amout = amout;
         }
     }
 }

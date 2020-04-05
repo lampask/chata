@@ -21,6 +21,7 @@ public static class Imports
     /// LIST OF OBJECTS ///
     public static readonly GameObject PLAYER_OBJ = Resources.Load(PointConvert("Player", ConversionType.Obj)) as GameObject;
     public static readonly TileBase SELECTOR_TILE = Resources.Load(PointConvert("Selector", ConversionType.Tile)) as TileBase;
+    public static readonly GameObject ESSENCE = Resources.Load(PointConvert("Essence", ConversionType.Obj)) as GameObject;
 
     // Plants
     public static readonly GameObject DELFI_OBJ = Resources.Load(PointConvert("DELFI", ConversionType.Obj)) as GameObject;

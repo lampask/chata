@@ -65,6 +65,14 @@ public class @InputSetting : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""7fa8ce9e-0f59-4728-bb55-09b0bdfb6362"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -276,6 +284,17 @@ public class @InputSetting : IInputActionCollection, IDisposable
                     ""action"": ""Select"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88f8cca2-e927-4e53-994d-0e8b07693ec0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -380,6 +399,7 @@ public class @InputSetting : IInputActionCollection, IDisposable
         m_Gameplay_Focus = m_Gameplay.FindAction("Focus", throwIfNotFound: true);
         m_Gameplay_Drag = m_Gameplay.FindAction("Drag", throwIfNotFound: true);
         m_Gameplay_Select = m_Gameplay.FindAction("Select", throwIfNotFound: true);
+        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
         // Menu
         m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
         m_Menu_Interaction = m_Menu.FindAction("Interaction", throwIfNotFound: true);
@@ -439,6 +459,7 @@ public class @InputSetting : IInputActionCollection, IDisposable
     private readonly InputAction m_Gameplay_Focus;
     private readonly InputAction m_Gameplay_Drag;
     private readonly InputAction m_Gameplay_Select;
+    private readonly InputAction m_Gameplay_Pause;
     public struct GameplayActions
     {
         private @InputSetting m_Wrapper;
@@ -449,6 +470,7 @@ public class @InputSetting : IInputActionCollection, IDisposable
         public InputAction @Focus => m_Wrapper.m_Gameplay_Focus;
         public InputAction @Drag => m_Wrapper.m_Gameplay_Drag;
         public InputAction @Select => m_Wrapper.m_Gameplay_Select;
+        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -476,6 +498,9 @@ public class @InputSetting : IInputActionCollection, IDisposable
                 @Select.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelect;
                 @Select.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelect;
                 @Select.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnSelect;
+                @Pause.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_GameplayActionsCallbackInterface = instance;
             if (instance != null)
@@ -498,6 +523,9 @@ public class @InputSetting : IInputActionCollection, IDisposable
                 @Select.started += instance.OnSelect;
                 @Select.performed += instance.OnSelect;
                 @Select.canceled += instance.OnSelect;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -578,6 +606,7 @@ public class @InputSetting : IInputActionCollection, IDisposable
         void OnFocus(InputAction.CallbackContext context);
         void OnDrag(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface IMenuActions
     {

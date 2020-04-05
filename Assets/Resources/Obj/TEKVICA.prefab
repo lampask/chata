@@ -42,7 +42,7 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 0.051886797, g: 0.8380643, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.66396385, b: 0.05098039, a: 1}
   m_Intensity: 35
   m_Range: 6.5
   m_SpotAngle: 30
@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 7546074805677890194}
   - component: {fileID: 6354603277878563775}
   - component: {fileID: 946737001889599185}
+  - component: {fileID: 6447934136694730416}
   m_Layer: 0
   m_Name: TEKVICA
   m_TagString: Untagged
@@ -158,6 +159,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
+  hp: 1
+  damage: 2
+  cost: 3
+  attack_speed: 0
+  drop_range: {x: 1, y: 1}
+  damage_radius: 1.5
+--- !u!65 &6447934136694730416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837118267662952577}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!1 &7221825568044704900
 GameObject:
   m_ObjectHideFlags: 0

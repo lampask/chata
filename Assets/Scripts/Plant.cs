@@ -19,6 +19,9 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
     protected void Awake() {
         //EventManager.Instance.OnDamageDone.AddListener((EventManager.IDE t, ICanDealDamage u) => TakeDamage(t, u));
         transform.tag = "plant";
+        Game.game_over_event.AddListener(() => {
+            Destroy(this.gameObject);
+        });
     }
 
     protected void Start() {
@@ -32,20 +35,20 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
     public void TakeDamage<T>(T dealer) where T : ICanDealDamage {
         Health = -dealer.Damage;
         if (Health <= 0)
+            dealer.EndAttack();
             Die();
     }
 
-    protected void OnDestroy() {
-        Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
-    }
+    public virtual void EndAttack() { }
 
-    public void Die() {
+    public virtual void Die() {
         /*TileIdentification tile_below = (TileIdentification) GetObjectBelow();
         // remove dig effect
         MeshRenderer mr = tile_below.GetComponent<MeshRenderer>();
         mr.sharedMaterial = Game.tiles.FirstOrDefault(x => x.Value == mr.sharedMaterial).Key;
         // Disable tile
         tile_below.ready = false;*/
+        Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
         Destroy(gameObject);
     }
 }

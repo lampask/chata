@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
 
     private IDamagable target;
 
+    [SerializeField] [Utils.ReadOnly] private Vector3 destination;
+
     protected virtual void Awake() {
         nava = GetComponent<NavMeshAgent>();
         transform.tag = "enemy";
@@ -31,7 +33,8 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
 
     protected virtual void Update() {
         if (current < trajectory.nodes.Count-1 && ((nava.pathStatus==NavMeshPathStatus.PathComplete && nava.remainingDistance==0) || nava.pathStatus == NavMeshPathStatus.PathInvalid)) {
-            nava.SetDestination(trajectory.gameObject.transform.position+trajectory.nodes[++current]);
+            destination = trajectory.gameObject.transform.TransformPoint(trajectory.nodes[++current]);
+            nava.SetDestination(destination);
         }
     }
 
@@ -43,10 +46,6 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
         Health -= dealer.Damage;
         if (Health <= 0)
             Die();
-    }
-
-    protected void OnDestroy() {
-        Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
     }
 
     protected virtual void OnTriggerEnter(Collider other) {
@@ -63,13 +62,16 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
     protected IEnumerator Attack(IDamagable target) {
         while(target != null && !target.Equals(null)) {
             yield return new WaitForSeconds(attack_speed); 
-            DoDamage(target);
+            try {
+                DoDamage(target);
+            } catch {
+                target = null; // unnecesary
+            }
         }
-        target = null;
-        EndAttack();
     }
 
     public void Die() {
+        Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
         StopAllCoroutines();
         Destroy(gameObject);
     }

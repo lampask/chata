@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<TileIdentification> restricted_blocks = new List<TileIdentification>();
     [SerializeField] List<Material> materials = new List<Material>();
     [SerializeField] List<Material> materials_o = new List<Material>();
+
+    public GameObject game_over;
+    public GameObject pause;
+
     void Awake()
     {
         if (!_instance)
@@ -23,6 +29,24 @@ public class GameManager : MonoBehaviour
 
         Game.game_over_event.AddListener(() => {
             Game.IsGameOver = true;
+
+            //Show UI
+            game_over.SetActive(true);
+            game_over.GetComponentInChildren<TextMeshProUGUI>().text = Game.main_time.GetComponent<TextMeshProUGUI>().text;
+            game_over.GetComponentInChildren<Button>().onClick.AddListener(() => {
+                ScreenManager.instance.LoadToMenu(ScreenManager.SceneIndexs.GAME);
+            });
+            // Freeze time
+            Time.timeScale = 0;
+        });
+
+        Button[] btns = pause.GetComponentsInChildren<Button>();
+        btns[0].onClick.AddListener(() => {
+            Time.timeScale = 1;
+            pause.SetActive(false);
+        });
+        btns[1].onClick.AddListener(() => {
+            ScreenManager.instance.LoadToMenu(ScreenManager.SceneIndexs.GAME);
         });
 
         // SET GAME PROPERIES

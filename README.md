@@ -9,10 +9,10 @@
   - [x] Arrange UI
   - [x] LScreen Art
   - [x] Async scene loading + Game processes
-- [ ] Game
+- [x] Game
   - [x] Camera movement
     - [x] Angle adjustment
-  - [ ] Player
+  - [x] Player
     - [x] Movement => selector
     - [x] Actions
       - [x] Diging
@@ -22,9 +22,9 @@
     - [x] Obstacle objects
     - [x] Map
     - [ ] *Optional:* more light sources
-  - [ ] Spawners
+  - [x] Spawners
     - [x] Mechanic (Enemy spawning)
-    - [ ] Arrangement
+    - [x] Arrangement
   - [x] Enemies
     - [x] Models loaded and animated
     - [x] Path movement
@@ -34,19 +34,19 @@
     - [x] Models loaded and animated
     - [x] Death + Drop
     - [ ] Attacks
-    - [ ] Planting cost 
-  - [ ] Core
+    - [x] Planting cost 
+  - [x] Core
     - [x] Tool selection
     - [x] Main game timer
     - [x] Health bar
     - [x] Currency bar
-    - [ ] Game end
+    - [x] Game end
       - [x] UI
       - [x] Mechanic
-      - [ ] Like actually end game
-    - [ ] Game pause
+      - [x] Like actually end game
+    - [x] Game pause
       - [x] UI
-      - [ ] Mechanic
+      - [x] Mechanic
     - [x] Tool usage indicator
 - [ ] *Optional:* Extras
   - [ ] Essence spawning

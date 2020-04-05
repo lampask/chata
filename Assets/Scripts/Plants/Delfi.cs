@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Delfi : Plant
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public float range = 4f;
+    private void Update() {
+        Collider[] targets = Physics.OverlapSphere(transform.position, range);
+        if (targets.Length > 0) {
+            //StartCoroutine(Attack());
+        }
     }
+    /*private IEnumerator Attack() {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }*/
 }

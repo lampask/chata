@@ -23,10 +23,12 @@ public class MenuScript : MonoBehaviour
         ScreenManager.instance.LoadGame();
     }
 
+    // DISABLED
     public void Tutorial() {
         Debug.Log("Stats trigerred!");
     }
 
+    // DISABLED
     public void Options() {
         Debug.Log("Options trigerred!");
         options.SetActive(!options.activeSelf);
@@ -34,7 +36,7 @@ public class MenuScript : MonoBehaviour
 
     public void Quit() {
         Debug.Log("Quit trigerred!");
-        
+        Application.Quit();
     }
 
     public void Cretits() {

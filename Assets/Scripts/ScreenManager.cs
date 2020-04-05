@@ -29,13 +29,18 @@ public class ScreenManager : MonoBehaviour {
 
     List<AsyncOperation> loading = new List<AsyncOperation>(); 
 
-    public void LoadGame() {
+    public void LoadGame(SceneIndexs current) {
         loadingScreen.SetActive(true);
 
-        loading.Add(SceneManager.UnloadSceneAsync((int) SceneIndexs.MENU_SCREEN));
+        loading.Add(SceneManager.UnloadSceneAsync((int) current));
         loading.Add(SceneManager.LoadSceneAsync((int) SceneIndexs.GAME, LoadSceneMode.Additive));
 
         StartCoroutine(GetLoadProgress());
+    }
+
+    // default overload
+    public void LoadGame() {
+        LoadGame(SceneIndexs.MENU_SCREEN);
     }
 
     public void LoadCredits() {
@@ -43,6 +48,15 @@ public class ScreenManager : MonoBehaviour {
 
         loading.Add(SceneManager.UnloadSceneAsync((int) SceneIndexs.MENU_SCREEN));
         loading.Add(SceneManager.LoadSceneAsync((int) SceneIndexs.CREDITS, LoadSceneMode.Additive));
+
+        StartCoroutine(GetLoadProgress());
+    }
+
+    public void LoadToMenu(SceneIndexs current) {
+        loadingScreen.SetActive(true);
+
+        loading.Add(SceneManager.UnloadSceneAsync((int) current));
+        loading.Add(SceneManager.LoadSceneAsync((int) SceneIndexs.MENU_SCREEN, LoadSceneMode.Additive));
 
         StartCoroutine(GetLoadProgress());
     }
@@ -59,7 +73,7 @@ public class ScreenManager : MonoBehaviour {
 
                 totalLoadingProgress /= loading.Count;
 
-                progressBar.fillAmount = Mathf.RoundToInt(totalLoadingProgress * 100f);
+                progressBar.fillAmount = totalLoadingProgress;
 
                 yield return null;
             }
