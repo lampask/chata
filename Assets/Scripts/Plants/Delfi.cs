@@ -32,24 +32,25 @@ public class Delfi : Plant
                 }
             }
         } else {
-            if (target == null || target.Equals(null)) {
-                target = null;
-                in_combat = false;
-            } else {
+            if (target != null || !target.Equals(null)) {
                 transform.rotation = Quaternion.LookRotation((target.gameObject.transform.position-transform.position).normalized);
             }
         }
     }
 
     private IEnumerator Attack(Enemy target) {
-        GetComponentInChildren<Animator>().SetTrigger("Attack");
-        DoDamage(target);
-        if (Vector3.Distance(transform.position, target.transform.position) > range) {
-            target = null;
-            in_combat = false;
-            yield break;
+        while(true) {
+            if (target == null || target.Equals(null) || Vector3.Distance(transform.position, target.transform.position) > range) {
+                target = null;
+                in_combat = false;
+                yield break;
+            } else if (Health > 0) {
+                GetComponentInChildren<Animator>().SetTrigger("Attack");
+                DoDamage(target);
+                Health -= 1;
+            }
+            yield return new WaitForSeconds(attack_speed);
         }
-        yield return new WaitForSeconds(attack_speed);
     }
 
     private void OnDrawGizmos() {

@@ -765,8 +765,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
-  hp: 3
-  damage: 2
+  hp: 5
+  damage: 1
   cost: 4
   attack_speed: 1
   drop_range: {x: 2, y: 2}

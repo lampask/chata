@@ -39,9 +39,10 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
 
     public void TakeDamage<T>(T dealer) where T : ICanDealDamage {
         Health = -dealer.Damage;
-        if (Health <= 0)
+        if (Health <= 0) {
             dealer.EndAttack();
             Die();
+        }
     }
 
     public virtual void EndAttack() { }

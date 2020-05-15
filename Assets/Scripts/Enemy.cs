@@ -61,13 +61,8 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
         }
     }
 
-    protected virtual void OnTriggerExit(Collider other) {
-        if (other.CompareTag("plant")) {
-            EndAttack();
-        }
-    }
-
     public void EndAttack() {
+        StopAllCoroutines();
         nava.isStopped = false;
     }
 
