@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    [Utils.ReadOnly] public int wave = 0;
     public float initial_delay = 10000f;
 
     [Header("Waves")]
@@ -15,23 +16,45 @@ public class Spawner : MonoBehaviour
     public float spawn_delay = 2f;
     public int spawn_delay_rate = 1;
 
-    public int amout = 1;
-    public int amout_rate = 1;
+    public GameObject[] enemy_array;
+
+    public enum Enemies {
+        TERMIT = 0,
+        DINO = 1
+    }
+    
+    [System.Serializable]
+    public class Wave {
+        public List<Unit> units;
+    }
+
+    [System.Serializable]
+    public class Unit {
+        public Enemies type;
+        public int amout;
+    }
+
+    public List<Wave> waves;
+
     public Polyline trajectory;
 
     private void Awake() {
         trajectory = GetComponent<Polyline>();
+        enemy_array = new GameObject[]{Imports.TERMIT_OBJ, Imports.DINO_OBJ};
         StartCoroutine(Spawn());
     }
 
     IEnumerator Spawn() {
         yield return new WaitForSeconds(initial_delay);
         while(!GameManager._instance.IsGameOver) {
-            for (int i = 0; i < amout; i++) {
-                GameObject.Instantiate(Imports.DINO_OBJ, transform.position+trajectory.nodes[0]-Vector3.up*(transform.position.y-1), Quaternion.LookRotation((transform.TransformPoint(transform.position+trajectory.nodes[0])-transform.TransformPoint(transform.position+trajectory.nodes[1])).normalized)).GetComponent<Dino>().trajectory = trajectory;
-                yield return new WaitForSeconds(spawn_delay);
+            foreach(Wave w in waves) {
+                foreach(Unit u in w.units) {
+                    GameObject.Instantiate(enemy_array[(int)u.type], transform.position+trajectory.nodes[0]-Vector3.up*(transform.position.y-1), Quaternion.LookRotation((transform.TransformPoint(transform.position+trajectory.nodes[0])-transform.TransformPoint(transform.position+trajectory.nodes[1])).normalized)).GetComponent<Enemy>().trajectory = trajectory;
+                    yield return new WaitForSeconds(spawn_delay);
+                }
+                wave++;
+                yield return new WaitForSeconds(delay);
             }
-            yield return new WaitForSeconds(delay);
         }
     }
 }

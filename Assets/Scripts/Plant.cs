@@ -16,6 +16,10 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
     [SerializeField] protected int attack_speed;
     [SerializeField] protected Vector2 drop_range;
 
+    protected string death_sound;
+    protected string plant_sound;
+    protected string attack_sound;
+
     protected void Awake() {
         //EventManager.Instance.OnDamageDone.AddListener((EventManager.IDE t, ICanDealDamage u) => TakeDamage(t, u));
         transform.tag = "plant";
@@ -24,12 +28,13 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
         });
     }
 
-    protected void Start() {
+    protected virtual void Start() {
+        SoundManager.instance.Play(plant_sound, false, GetComponent<AudioSource>());
         position = new Vector3Int((int) transform.position.x, (int) transform.position.y, (int) transform.position.z);
     }
 
     public void DoDamage<T>(T target) where T : IDamagable {
-        
+        target.TakeDamage(this);
     }
 
     public void TakeDamage<T>(T dealer) where T : ICanDealDamage {
@@ -49,6 +54,7 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
         // Disable tile
         tile_below.ready = false;*/
         Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
-        Destroy(gameObject);
+        SoundManager.instance.Play(death_sound, false, GetComponent<AudioSource>());
+        Destroy(gameObject, SoundManager.instance.AudioClips.Find(x => x.name == death_sound).clip.length);
     }
 }

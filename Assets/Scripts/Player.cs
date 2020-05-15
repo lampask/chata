@@ -146,6 +146,7 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
     private void Pickup(Item pickedUp) {
 
     }
+
     private void Remove(WorldObject target) {
         Utils.RemoveMapObj(target);
         int drop = UnityEngine.Random.Range(0, 3);
@@ -153,9 +154,11 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
             Utils.Drop(target.transform.position, drop);
         Destroy(target.gameObject);
     }
+
     private void Dig(TileIdentification target) {
         target.ready = true;
         var mr = target.gameObject.GetComponent<MeshRenderer>();
+        SoundManager.instance.Play("Oranie", false, GetComponent<AudioSource>());
         mr.sharedMaterial = GameManager._instance.tiles[mr.sharedMaterial];
     }
 

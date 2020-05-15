@@ -12,7 +12,7 @@ public class Item : MonoBehaviour, IPickable
     private void Awake() {
         GameManager._instance.game_over_event.AddListener(() => {
             Destroy(this.gameObject);
-        });    
+        });
     }   
 
     private void Update() {
@@ -28,6 +28,7 @@ public class Item : MonoBehaviour, IPickable
 
     public void Picked(Player picker, Item item) { 
         GameManager._instance.essence += amout;
+        SoundManager.instance.Play("Pickup", false, GameManager._instance.player.GetComponent<AudioSource>());
         Destroy(this.gameObject);
     }
 

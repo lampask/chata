@@ -30,10 +30,10 @@
     - [x] Path movement
     - [x] Attacks
     - [x] Death + Drops
-  - [ ] Plants
+  - [x] Plants
     - [x] Models loaded and animated
     - [x] Death + Drop
-    - [ ] Attacks
+    - [x] Attacks
     - [x] Planting cost 
   - [x] Core
     - [x] Tool selection
@@ -53,5 +53,5 @@
   - [ ] Fireflies
   - [ ] Chata pointer
 - [x] Overall compatibility
-- [ ] Sounds & Music
+- [x] Sounds & Music
 - [ ] Release version

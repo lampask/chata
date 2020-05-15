@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Linq;
 using UnityEngine.Events;
+using System.Collections;
 using TMPro;
 using UnityEngine.UI;
 
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject game_over;
     public GameObject pause;
+    public GameObject lore_shade;
+    public GameObject lore;
 
     void Awake()
     {
@@ -47,7 +50,8 @@ public class GameManager : MonoBehaviour
             Destroy(this);
 
         Time.timeScale = 1;
-
+        SoundManager.instance.DisableListener();
+        
         controls = new InputSetting(); 
 
         p_obj = GameObject.Instantiate(Imports.PLAYER_OBJ, (Vector3)Constants.PLAYER_STARTING_POSITION+Vector3.up, Quaternion.identity);
@@ -82,6 +86,13 @@ public class GameManager : MonoBehaviour
             game_over_event.Invoke();
             ScreenManager.instance.LoadToMenu(ScreenManager.SceneIndexs.GAME);
         });
+        lore.GetComponentInChildren<Button>().onClick.AddListener(() => {
+            Time.timeScale = 1;
+            SoundManager.instance.Play("ButtonClick", false, GetComponent<AudioSource>());
+            lore.GetComponentInChildren<Image>().gameObject.LeanMoveLocalY(800, 10);
+            lore.SetActive(false);
+            SoundManager.instance.Play("Music", true);
+        });
 
         // SET GAME PROPERIES
         if (!tilemap_object)
@@ -102,6 +113,19 @@ public class GameManager : MonoBehaviour
         //i_selector = GameObject.Find("sgfsg").GetComponent<InteractionSelector>();
         
         Debug.Log("All loaded!");
+        SoundManager.instance.Play("Noise", true);
+        lore_shade.SetActive(true);
+        lore_shade.GetComponent<Image>().color = new Color(0,0,0,1);
+        StartCoroutine(fade_out_shade());
+    }
+
+    IEnumerator fade_out_shade() {
+        while(lore_shade.GetComponent<Image>().color.a > 0) {
+            lore_shade.GetComponent<Image>().color = new Color32(0,0,0, (byte) (lore_shade.GetComponent<Image>().color.a*255-5));
+            yield return null;
+        }
+        lore_shade.SetActive(false);
+        Time.timeScale = 0;
     }
 
     void Start() {
