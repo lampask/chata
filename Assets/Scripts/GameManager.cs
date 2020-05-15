@@ -67,10 +67,12 @@ public class GameManager : MonoBehaviour
         game_over_event.AddListener(() => {
             IsGameOver = true;
 
+
             //Show UI
             game_over.SetActive(true);
             game_over.GetComponentInChildren<TextMeshProUGUI>().text = main_time.GetComponent<TextMeshProUGUI>().text;
             game_over.GetComponentInChildren<Button>().onClick.AddListener(() => {
+                SoundManager.instance.EnableListener();
                 ScreenManager.instance.LoadToMenu(ScreenManager.SceneIndexs.GAME);
             });
             // Freeze time
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
         });
         btns[1].onClick.AddListener(() => {
             game_over_event.Invoke();
+            SoundManager.instance.EnableListener();
             ScreenManager.instance.LoadToMenu(ScreenManager.SceneIndexs.GAME);
         });
         lore.GetComponentInChildren<Button>().onClick.AddListener(() => {

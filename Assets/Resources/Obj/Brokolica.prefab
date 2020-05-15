@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750239354163788902}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3031911712558754415}
@@ -93,7 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124312158521716988}
   - component: {fileID: 6094866239302972168}
-  - component: {fileID: 2698457172154743648}
+  - component: {fileID: 6783123348345357086}
   - component: {fileID: -3326965530667552448}
   m_Layer: 0
   m_Name: Brokolica
@@ -129,8 +129,8 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0.5, y: 0.5, z: 0.5}
---- !u!114 &2698457172154743648
+  m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &6783123348345357086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3107566755462775535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c24a01a0a9412f54eaf04f6760f3112a, type: 3}
+  m_Script: {fileID: 11500000, guid: 887eac375fab14d47ba7cf0a9b122e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   position: {x: 0, y: 0, z: 0}
@@ -160,7 +160,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.035
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -167,25 +167,25 @@ public class Player : MonoBehaviour, IEntity, ICanDealDamage
             case ISelection.DELFI:
                 if (GameManager._instance.essence >= Imports.DELFI_OBJ.GetComponent<Plant>().cost) {
                     GameManager._instance.essence -= Imports.DELFI_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.DELFI_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+new Vector3(0.5f,1,0.5f), GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.BROKOL:
                 if (GameManager._instance.essence >= Imports.BROKOL_OBJ.GetComponent<Plant>().cost) {
                     GameManager._instance.essence -= Imports.BROKOL_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.BROKOL_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.BROKOL_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+new Vector3(0.5f,1,0.5f), GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.KARF:
                 if (GameManager._instance.essence >= Imports.KARF_OBJ.GetComponent<Plant>().cost) {
                     GameManager._instance.essence -= Imports.KARF_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.KARF_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.KARF_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+new Vector3(0.5f,1,0.5f), GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
             case ISelection.PUMPKIN:
             if (GameManager._instance.essence >= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost) {
                     GameManager._instance.essence -= Imports.TEKVICA_OBJ.GetComponent<Plant>().cost;
-                    Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+Vector3.up, GameManager._instance.cam_angle).GetComponent<Plant>());
+                    Utils.AddMapObj(GameObject.Instantiate(Imports.TEKVICA_OBJ, game_map.CellToLocal(game_map.LocalToCell(p_pos))+new Vector3(0.5f,1,0.5f), GameManager._instance.cam_angle).GetComponent<Plant>());
                 }
                 break;
         }

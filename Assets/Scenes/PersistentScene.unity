@@ -206,7 +206,7 @@ MonoBehaviour:
   - name: Termit_Death
     clip: {fileID: 8300000, guid: ba8ac63f8fe7d5d42bc5dcf9d1b851f8, type: 3}
   - name: Termit_Walk
-    clip: {fileID: 8300000, guid: e2220d7403a86e74480acfb68982c7f6, type: 3}
+    clip: {fileID: 8300000, guid: b97d90190b946de438fa438eeca04def, type: 3}
   - name: Termit_Attack
     clip: {fileID: 8300000, guid: 34b824f2bad3c8c458c4e17e64ba73b1, type: 3}
   - name: Brok_Karf_Sadenie

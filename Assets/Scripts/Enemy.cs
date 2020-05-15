@@ -61,6 +61,12 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
         }
     }
 
+    protected virtual void OnTriggerExit(Collider other) {
+        if (other.CompareTag("plant")) {
+            EndAttack();
+        }
+    }
+
     public void EndAttack() {
         nava.isStopped = false;
     }
@@ -80,6 +86,6 @@ public class Enemy : MonoBehaviour, IEntity, IDamagable, ICanDealDamage
         Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
         StopAllCoroutines();
         SoundManager.instance.Play(death_sound, false, GetComponent<AudioSource>());
-        Destroy(gameObject, SoundManager.instance.AudioClips.Find(x => x.name == death_sound).clip.length);
+        Destroy(gameObject);
     }
 }

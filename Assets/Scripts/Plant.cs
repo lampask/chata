@@ -55,6 +55,6 @@ public class Plant : WorldObject, IEntity, ICanDealDamage, IDamagable
         tile_below.ready = false;*/
         Utils.Drop(transform.position, (int) Random.Range(drop_range.x, drop_range.y));
         SoundManager.instance.Play(death_sound, false, GetComponent<AudioSource>());
-        Destroy(gameObject, SoundManager.instance.AudioClips.Find(x => x.name == death_sound).clip.length);
+        Destroy(gameObject);
     }
 }

@@ -32,7 +32,12 @@ public class Delfi : Plant
                 }
             }
         } else {
-            transform.rotation = Quaternion.LookRotation((target.gameObject.transform.position-transform.position).normalized);
+            if (target == null || target.Equals(null)) {
+                target = null;
+                in_combat = false;
+            } else {
+                transform.rotation = Quaternion.LookRotation((target.gameObject.transform.position-transform.position).normalized);
+            }
         }
     }
 
