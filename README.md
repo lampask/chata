@@ -1,18 +1,18 @@
 # Project 「𝕮𝖍𝖆𝖙𝖆」 overall progress
-- [ ] Menu
+- [x] Menu
   - [x] Arrange UI
   - [x] Menu Art
   - [x] Responsive
-  - [ ] Button functionality
+  - [x] Button functionality
   - [ ] *Optional:* Control visualization 
-- [ ] Loading Screen
+- [x] Loading Screen
   - [x] Arrange UI
   - [x] LScreen Art
-  - [ ] Async scene loading + Game processes
-- [ ] Game
+  - [x] Async scene loading + Game processes
+- [x] Game
   - [x] Camera movement
     - [x] Angle adjustment
-  - [ ] Player
+  - [x] Player
     - [x] Movement => selector
     - [x] Actions
       - [x] Diging
@@ -22,36 +22,36 @@
     - [x] Obstacle objects
     - [x] Map
     - [ ] *Optional:* more light sources
-  - [ ] Spawners
+  - [x] Spawners
     - [x] Mechanic (Enemy spawning)
-    - [ ] Arrangement
+    - [x] Arrangement
   - [x] Enemies
     - [x] Models loaded and animated
     - [x] Path movement
     - [x] Attacks
     - [x] Death + Drops
-  - [ ] Plants
+  - [x] Plants
     - [x] Models loaded and animated
     - [x] Death + Drop
-    - [ ] Attacks
-    - [ ] Planting cost 
-  - [ ] Core
+    - [x] Attacks
+    - [x] Planting cost 
+  - [x] Core
     - [x] Tool selection
     - [x] Main game timer
     - [x] Health bar
     - [x] Currency bar
-    - [ ] Game end
+    - [x] Game end
       - [x] UI
       - [x] Mechanic
-      - [ ] Like actually end game
-    - [ ] Game pause
+      - [x] Like actually end game
+    - [x] Game pause
       - [x] UI
-      - [ ] Mechanic
+      - [x] Mechanic
     - [x] Tool usage indicator
 - [ ] *Optional:* Extras
   - [ ] Essence spawning
   - [ ] Fireflies
   - [ ] Chata pointer
-- [ ] Overall compatibility
-- [ ] Sounds & Music
+- [x] Overall compatibility
+- [x] Sounds & Music
 - [ ] Release version

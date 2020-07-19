@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - map
+  - sel_map
+  - progress
+  - enemy
+  - player
+  - timer
+  - chata
+  - hp_bar
+  - plant
+  - essence
+  - pause
   layers:
   - Default
   - TransparentFX
@@ -13,12 +24,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
+  - Ground
+  - Characters
+  - Selector
+  - Plants
+  - Enemies
   - 
   - 
   - 
@@ -40,4 +51,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Ground
+    uniqueID: 362655065
+    locked: 0
+  - name: Player
+    uniqueID: 1192095145
     locked: 0
